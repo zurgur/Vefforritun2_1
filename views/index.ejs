@@ -1,5 +1,9 @@
 <%- include('header') -%>
 
-<%- innihald %>
+<ul>
+        <% users.forEach(function(user){ %>
+          <%- include('user/show', {user: user}); %>
+        <% }); %>
+</ul>
 
 <%- include('footer') -%>

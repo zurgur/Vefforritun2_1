@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const marked = require('marked');
+const matter = require('gray-matter');
 
 const app = express();
 
@@ -23,8 +24,9 @@ app.get('/batman-ipsum', (req,res) => {
     if(err) {
       console.log(err);
     }
-    var texti = marked(data.toString());
-    res.render('index',{title: req.baseUrl, innihald: texti});
+    var texti = matter(data);
+    var texti = marked(texti.content.toString());
+    res.render('content',{title: req.baseUrl, innihald: texti});
 });
 });
 
