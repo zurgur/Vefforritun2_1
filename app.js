@@ -13,9 +13,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 app.get('/',(req,res)=> {
   //res.send("Express your self!");
-  res.render('index',{title: 'forsíða'});
+
+  fs.readdir(path.join(__dirname ,"/articles"), (function(err, filenames) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    var test = [];
+    for(var i = 0; i<filenames.length;i++){
+      if(filenames[i].endsWith('.md')){
+        test.push(matter(filenames[i]));
+      }
+    } 
+    res.render('index',{title: "homebace", content: test});
+    
+  }));
+  //var test = readFiles(path.join(__dirname/articles','));
+  
 });
 
 app.get('/batman-ipsum', (req,res) => {

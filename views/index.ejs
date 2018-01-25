@@ -1,9 +1,5 @@
 <%- include('header') -%>
 
-<ul>
-        <% users.forEach(function(user){ %>
-          <%- include('user/show', {user: user}); %>
-        <% }); %>
-</ul>
+<%= content %>
 
 <%- include('footer') -%>
