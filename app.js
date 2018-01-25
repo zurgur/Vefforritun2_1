@@ -35,8 +35,10 @@ app.get('/',(req,res)=> {
   
 });
 
-app.get('/batman-ipsum', (req,res) => {
-  var data = path.join(__dirname, 'articles'+req.url+'.md');
+app.get('/content*.md', (req,res) => {
+  var url = req.url.substring(8);
+  console.log(url);
+  var data = path.join(__dirname, 'articles'+url);
   var mark = fs.readFile(data, 'utf8', function(err, data) {
     if(err) {
       console.log(err);
