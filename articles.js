@@ -43,21 +43,23 @@ async function getMarckDown(content){
   return arr;
 }
 
-async function main() {
+async function main(cb) {
   try{
     const data = await getAllFilesInDir(input);
     const stuff = await getContentOfFiles(data);
     const boi = await getMarckDown(stuff);
+    cb(data,stuff,boi);        
   }catch(err){
     console.log(err + '1');
   }
-  return boi;
-  
 }
 
 articles.get('/',(req,res)=> {
-  var c = main();
-  res.render('index', {title: "test",content: c});
+  main((a,b,c) => {
+    console.log(b);
+    res.render('index', {title: "test",content: b});
+  });
+  
 });
 
 module.exports = articles;
