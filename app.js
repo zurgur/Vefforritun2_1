@@ -15,9 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use('/', articles);
   
-app.use(function notfound(req, res, next){
-  res.status(404).send('síða fanst ekki');
-});
+
 
 app.use(function error(err, req, res, next){
   console.error(err);
@@ -28,16 +26,3 @@ app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-/*app.get('/content*.md', (req,res) => {
-  var url = req.url.substring(8);
-  console.log(url);
-  var data = path.join(__dirname, 'articles'+url);
-  var mark = fs.readFile(data, 'utf8', function(err, data) {
-    if(err) {
-      console.log(err);
-    }
-    var texti = matter(data);
-    var texti = marked(texti.content.toString());
-    res.render('content',{title: req.baseUrl, innihald: texti});
-});
-});*/

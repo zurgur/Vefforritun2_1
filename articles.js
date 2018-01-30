@@ -56,10 +56,41 @@ async function main(cb) {
 
 articles.get('/',(req,res)=> {
   main((a,b,c) => {
-    console.log(b);
     res.render('index', {title: "test",content: b});
   });
   
 });
+
+articles.use(function notfound(req, res, next){
+  var url = req.url.substring(1);
+  main((a,b,c) => {
+    
+    for(var i = 0; i<b.length;i++){
+      if(b[i].data.slug.toString() === url.toString()){
+        var stadur = i;
+      } 
+    }
+    if(stadur != null){
+      res.render('content', {title: req.baseUrl, innihald: c[stadur]});
+    }
+    else{
+      res.status(404).send('síða fanst ekki');
+    }
+  });
+});
+
+/*app.get('/content*.md', (req,res) => {
+  var url = req.url.substring(8);
+  console.log(url);
+  var data = path.join(__dirname, 'articles'+url);
+  var mark = fs.readFile(data, 'utf8', function(err, data) {
+    if(err) {
+      console.log(err);
+    }
+    var texti = matter(data);
+    var texti = marked(texti.content.toString());
+    res.render('content',{title: req.baseUrl, innihald: texti});
+});
+});*/
 
 module.exports = articles;

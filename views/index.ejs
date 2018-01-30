@@ -4,8 +4,8 @@
 <ul>
     <% for(var i=0; i<content.length; i++) { %>
         <li>
-            <a href='content/<%= content[i].content %>'>
-                <%= content[i].content %>
+            <a href='<%= content[i].data.slug %>'>
+                <%= content[i].data.slug %>
             </a>
         </li>
     <% } %>
