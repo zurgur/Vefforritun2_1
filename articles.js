@@ -1,40 +1,63 @@
-/* útfæra greina virkni */
+const express = require('express');
+const fs = require('fs');
+const util = require('util');
+const path = require('path');
+const MarkdownIt = require('markdown-it');
 const marked = require('marked');
-const mater = require('gray-matter');
+const matter = require('gray-matter');
+const articles = express.Router();
+const readFileAsync = util.promisify(fs.readFile);
+const readDirAsync = util.promisify(fs.readdir);
 
-var markdownString = '```js\n console.log("hello"); \n```';
- 
-// Async highlighting with pygmentize-bundled
-marked.setOptions({
-  highlight: function (code, lang, callback) {
-    require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
-      callback(err, result.toString());
-    });
+const encoding = 'utf8';
+const input = path.join(__dirname,'articles');
+
+async function getAllFilesInDir(file) {
+  const data = await readDirAsync(file);
+  return data;
+}
+
+async function getContentOfFiles(content) {
+  data = [];
+  conLength = Object.keys(content).length;
+  const md = new MarkdownIt();
+
+  for(var i = 0; i< conLength; i++){
+    var pthur = path.join(__dirname,'articles/' + content[i]);
+    try{
+      stuff = await readFileAsync(pthur);
+      data.push(matter(stuff));
+    }catch(err){
+      console.log(err+ '2');
+    }
   }
-});
- 
-// Using async version of marked
-marked(markdownString, function (err, content) {
-  if (err) throw err;
-  console.log(content);
-});
-
-function readFiles(dirname, onFileContent, onError) {
-    fs.readdir(dirname, function(err, filenames) {
-      if (err) {
-        onError(err);
-        return;
-      }
-      filenames.forEach(function(filename) {
-        fs.readFile(dirname + filename, 'utf-8', function(err, content) {
-          if (err) {
-            onError(err);
-            return;
-          }
-          onFileContent(filename, content);
-        });
-      });
-    });
+  return data;
+}
+async function getMarckDown(content){
+  conLength = Object.keys(content).length;
+  var arr = [];
+  for(var i = 0;i<conLength;i++){
+    var stuff = marked(content[i].content);
+    arr.push(stuff);
   }
+  return arr;
+}
 
+async function main() {
+  try{
+    const data = await getAllFilesInDir(input);
+    const stuff = await getContentOfFiles(data);
+    const boi = await getMarckDown(stuff);
+  }catch(err){
+    console.log(err + '1');
+  }
+  return boi;
   
+}
+
+articles.get('/',(req,res)=> {
+  var c = main();
+  res.render('index', {title: "test",content: c});
+});
+
+module.exports = articles;

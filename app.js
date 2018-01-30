@@ -1,41 +1,21 @@
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
-const marked = require('marked');
-const matter = require('gray-matter');
-
+const path = require('path');
+const util = require('util');
+const articles = require('./articles');
 const app = express();
+const input = path.join(__dirname,'articles');
 
 const hostname = '127.0.0.1';
 const port = 3000;
+var greinar = [];
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-
-app.get('/',(req,res)=> {
-  //res.send("Express your self!");
-
-  fs.readdir(path.join(__dirname ,"/articles"), (function(err, filenames) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    var test = [];
-    for(var i = 0; i<filenames.length;i++){
-      if(filenames[i].endsWith('.md')){
-        test.push(matter(filenames[i]));
-      }
-    } 
-    res.render('index',{title: "homebace", content: test});
-    
-  }));
-  //var test = readFiles(path.join(__dirname/articles','));
+app.use('/', articles);
   
-});
-
-app.get('/content*.md', (req,res) => {
+/*app.get('/content*.md', (req,res) => {
   var url = req.url.substring(8);
   console.log(url);
   var data = path.join(__dirname, 'articles'+url);
@@ -47,7 +27,7 @@ app.get('/content*.md', (req,res) => {
     var texti = marked(texti.content.toString());
     res.render('content',{title: req.baseUrl, innihald: texti});
 });
-});
+});*/
 
 app.use(function notfound(req, res, next){
   res.status(404).send('síða fanst ekki');
