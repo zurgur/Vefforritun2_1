@@ -8,7 +8,6 @@ const matter = require('gray-matter');
 const articles = express.Router();
 const readFileAsync = util.promisify(fs.readFile);
 const readDirAsync = util.promisify(fs.readdir);
-
 const encoding = 'utf8';
 const input = path.join(__dirname,'articles');
 
@@ -57,10 +56,15 @@ async function main(cb) {
 
 articles.get('/',(req,res)=> {
   main((a,b,c) => {
-    res.render('index', {title: "test",content: b});
+    
+    b.sort((a,b) => { 
+      return new Date(b.data.date) - new Date(a.data.date);
+    });
+    res.render('index', {title: "Greina Safnið",content: b});
   });
   
 });
+
 
 articles.use(function notfound(req, res, next){
   var url = req.url.substring(1);
@@ -72,10 +76,10 @@ articles.use(function notfound(req, res, next){
       } 
     }
     if(stadur != null){
-      res.render('content', {title: req.baseUrl, innihald: c[stadur]});
+      res.render('content', {title: b[stadur].data.title, innihald: c[stadur]});
     }
     else{
-      res.status(404).send('síða fanst ekki');
+      res.status(404).render('error',{title: 'síða fanst ekki'});
     }
   });
 });
