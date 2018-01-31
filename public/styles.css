@@ -2,6 +2,10 @@
   margin: 0;
   padding: 0;
 }
+body{
+  background-color: #eee;
+
+}
 
 html {
   box-sizing: border-box;
@@ -33,7 +37,8 @@ a{
 }
 li img{
   width: 400px;
-
+  height: 265px;
+  background-color: gray !important;
 }
 
  div#wrapperHeader h {
@@ -42,29 +47,34 @@ li img{
     left: 50%;
     transform: translate(-50%, -100%);
     font-size: 100px;
-    font-family: Lora;
-    font-weight: bold;
+    font-family: Roboto;
+    font-weight: bolder;
     color: white;
  }
 
  h1 {
-  font-family: Lora;
+  font-family: Roboto;
   font-weight: bold;
   font-size: 48px;
  }
  h2 {
-  font-family: Lora;
+  font-family: Roboto;
   font-weight: bold;
   font-size: 32px;
  }
  h3 {
-  font-family: Lora;
+  font-family: Roboto;
   font-weight: bold;
   font-size: 24px;
  }
+ 
  p {
   font-family: Lora;
   font-size: 16px;
+ }
+ p img{
+   padding: 1%;
+   width: -moz-available;
  }
  
  div#wrapperHeader div#header {
