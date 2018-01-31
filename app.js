@@ -11,8 +11,6 @@ app.use('/img',express.static(path.join(__dirname,'articles/img')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use('/', articles);
-  
-
 
 app.use(function error(err, req, res){
     res.status(500).send('Villa kom upp');

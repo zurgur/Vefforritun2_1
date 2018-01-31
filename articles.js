@@ -79,7 +79,7 @@ articles.use(function notfound(req, res, next){
       res.render('content', {title: b[stadur].data.title, innihald: c[stadur]});
     }
     else{
-      res.status(404).render('error',{title: 'síða fanst ekki'});
+      res.status(404).render('error',{title: 'Fanst ekki', error: 'Ó nei efnið fanst ekki'});
     }
   });
 });
