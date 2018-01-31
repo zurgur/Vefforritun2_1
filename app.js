@@ -11,6 +11,7 @@ const port = 3000;
 var greinar = [];
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname,'articles')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use('/', articles);

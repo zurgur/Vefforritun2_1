@@ -26,7 +26,8 @@ async function getContentOfFiles(content) {
     var pthur = path.join(__dirname,'articles/' + content[i]);
     try{
       stuff = await readFileAsync(pthur);
-      data.push(matter(stuff));
+      var b = matter(stuff);
+      data.push(b);
     }catch(err){
       console.log(err+ '2');
     }
@@ -79,18 +80,5 @@ articles.use(function notfound(req, res, next){
   });
 });
 
-/*app.get('/content*.md', (req,res) => {
-  var url = req.url.substring(8);
-  console.log(url);
-  var data = path.join(__dirname, 'articles'+url);
-  var mark = fs.readFile(data, 'utf8', function(err, data) {
-    if(err) {
-      console.log(err);
-    }
-    var texti = matter(data);
-    var texti = marked(texti.content.toString());
-    res.render('content',{title: req.baseUrl, innihald: texti});
-});
-});*/
 
 module.exports = articles;

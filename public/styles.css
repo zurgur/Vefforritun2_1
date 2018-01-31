@@ -13,6 +13,29 @@ div#wrapperHeader {
   text-align:center;
  }
 
+ul{
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;
+}
+li{
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  list-style: none;
+  padding-top: 50px;
+  align-self: flex-end;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+li img{
+  width: 400px;
+
+}
+
  div#wrapperHeader h {
   position: absolute;
     top: 50%;

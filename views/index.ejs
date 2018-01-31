@@ -4,9 +4,11 @@
 <ul>
     <% for(var i=0; i<content.length; i++) { %>
         <li>
+            <img src='<%=content[i].data.image %>'/>
             <a href='<%= content[i].data.slug %>'>
-                <%= content[i].data.slug %>
+               <h2><%= content[i].data.title %></h1>
             </a>
+               <p> <%= content[i].data.date %></p>
         </li>
     <% } %>
 </ul>
