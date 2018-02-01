@@ -4,7 +4,13 @@
 <ul>
     <% for(var i=0; i<content.length; i++) { %>
         <li>
-            <img src='<%=content[i].data.image %>'onerror="this.style.icon='none'"/>
+            <div class="image__container">
+
+            <% if(typeof content[i].data.image!=="undefined"){ %>
+                    <img src='<%=content[i].data.image %>'onerror="this.width='0%'"/>
+            <% } %>
+        </div>
+
             <a href='<%= content[i].data.slug %>'>
                <h2><%= content[i].data.title %></h1>
             </a>

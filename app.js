@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.use('/', articles);
 
 app.use(function error(err, req, res){
-    res.status(500).send('Villa kom upp');
+    res.status(500).render('error',{title: 'Villa Kom upp', error: null});
 });
 
 app.listen(port, hostname, () => {
