@@ -14,20 +14,19 @@ const input = path.join(__dirname,'articles');
 var dateLagad = false;
 
 async function getAllFilesInDir(file) {
-  var data = await readDirAsync(file);
+  let data = await readDirAsync(file);
   return data;
 }
 
 async function getContentOfFiles(content) {
-  var data = [];
+  let data = [];
   conLength = Object.keys(content).length;
-  var stuff = null;
-  var b = null;
   for(var i = 0; i< conLength; i++){
     var pthur = path.join(__dirname,'articles/' + content[i]);
     try{
-      stuff = await readFileAsync(pthur);
-      b = matter(stuff);
+      let stuff = await readFileAsync(pthur);
+      let b = matter(stuff);
+      console.log(b);
       data.push(b);
       b = null;
     }catch(err){
