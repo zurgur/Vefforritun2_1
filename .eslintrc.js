@@ -31,6 +31,9 @@ module.exports = {
             "always"
         ],
         "no-console": [
-            "error", { allow: ["info", "warn", "error"] }],
+            "error", { 
+                allow: ["info", "warn", "error"] 
+            }
+        ],
     }
 };
